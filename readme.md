@@ -81,15 +81,15 @@ CSS stylesheet. See `style.css` to get an indea of how to design your own.
 
 #### `toiletpaper.name = '...'`
 
-Name of site. (Defaults to 'Goblin Documentation')
+Name of site. (Defaults to 'Toilet Paper Documentation')
 
 #### `toiletpaper.slug = '...'`
 
-Site slug (appears next to name). (Defaults to 'What do I put here?')
+Site slug (appears next to name). (Defaults to 'The crappiest way to tell people what to do.')
 
 #### `toiletpaper.footer = '...'`
 
-Site footer text. (Defaults to 'toiletpaper: documentation to wipe your ass with.')
+Site footer text. (Defaults to a link to the GitHub repository)
 
 ### Function
 
