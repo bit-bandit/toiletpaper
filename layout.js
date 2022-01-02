@@ -29,10 +29,6 @@ ${files}
 </nav>`;
 }
 
-export function article(content) {
-return '<article>\n' + content + '</article>';
-}
-
 export function footer(disclaimer) {
 return`
 <footer>

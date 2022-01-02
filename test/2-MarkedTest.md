@@ -20,12 +20,6 @@ Lorum, ipsum, *italic*, **bold**, ***bold and italic***
 
 ~~Strikethrough text~~
 
-| Table | Another Table |
--------------------------
-| Why   | is            |
-| this  | a             |
-| thing | ?             |
-
 1. Because why not?
 2. Really, why not?
 
@@ -60,10 +54,13 @@ void main ()
 [link with title](http://nodeca.github.io/pica/demo/ "title text!")
 
 **Q:** How Doom hold heat, and preach nonviolence?
+
 **A:** Sssh, he 'bout to start the speech, c'mon, SILENCE!
 
 > One starry night, I saw the light
+
 > Heard a voice that sound like this one guy, said "sure you're right"
+
 ![Barry White](https://upload.wikimedia.org/wikipedia/commons/b/b2/Barry_White%2C_Bestanddeelnr_927-0098_%28cropped%29.jpg)
 
 `:-)` - Happy

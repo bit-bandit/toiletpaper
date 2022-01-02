@@ -2,10 +2,11 @@
 // ...
 // TODO:
 //   [ ] - Add proper subdirectory support (Modifications in either loop 1 or 2.)
+//         If file is in directory with seperate number, prepend number (ie. 2.1)
 
 import fs from "fs";
 import { marked } from "marked"; // This is out of place, but Marked needs it to work.
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "url"; // This is just to handle a single component. At least it's just one function...
 import path from "path";
 
 import { head, header, nav, footer } from "./layout.js";
@@ -26,43 +27,24 @@ const toiletpaper = {
     // Sorting algorithm: 1-9, A-Z
     // If file is in directory with seperate number, append number like so:
     // 'directorynumber.filenumber'
-    //
-    //   fs.open r - for markdown files
-    //   fs w - for rendered HTML
-    //      fs.opendir()
+
     // Have to impliment this natively because ESM is a shit.
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
 
+    let nav_list = "<!--Navigation-->";
+ 
     // Loop 1: List all the files, for the left-side navbar.
-    // Get all the files in the directory as an array and loop over them to get the result?
-    // Save said result as a variable?
-      // I don't fucking know.
-    var list = [];
-     
-    function fullList() {
-
-      fs.readdir(toiletpaper.srcDir, (err, docs) => {
-        docs.forEach((doc) => {
-          // TODO: Modify strings prior to turning them into arrays.
-	  //       By that, I mean remove the `.md` extension.  
-          // list.push(doc);
-	  list.push(doc); 
+      let filelist = function () {
+        fs.readdirSync(toiletpaper.srcDir).forEach((doc) => {
+            return('\n', `<li><a href="./${path.parse(doc).name}.html">${path.parse(doc).name}</a></li>`);
         });
-      });
-    }
+      };
       
-    let navigation = `<li><a href="/fullList">&rsaquo; fullList</a></li>`;
-     
-     for (let i = 0; i < list.length; i++) {
-       navigation.concat(' \n ', `<li><a href="/${list[i]}">&rsaquo; ${list[i]}</a></li>`);
-     }
-
-
     // Loop 2: Render each file.
       fs.readdir(this.srcDir, (err, docs) => {
       docs.forEach((doc) => {
-	doc.replace(/\s+/g, '')    
+	// doc.replace(/\s+/g, '')    
         let src = fs.readFileSync(`${__dirname}/${this.srcDir}${doc}`, "utf8");
         let out = `${__dirname}/${this.outDir}${doc}`;
 	let abriv_out = `${__dirname}/${this.outDir}${path.parse(doc).name}`
@@ -73,14 +55,17 @@ const toiletpaper = {
           return `<${tag}>${innerhtml}</${tag}>`
         }
 
-        console.log(`${genhtml("article", markdown_render)}`);
+        // console.log(`${genhtml("article", markdown_render)}`);
 	  
           fs.writeFile(`${abriv_out}.html`,
-		       `${head(toiletpaper.css, toiletpaper.name)}
+		       `<!DOCTYPE HTML>
+		        <html>
+		        ${head(toiletpaper.css, toiletpaper.name)}
                         ${header(toiletpaper.name, toiletpaper.slug)}
-                        ${nav(navigation)}
+                        <!--Put Nav here, when stable enough.-->
                         ${genhtml("article", markdown_render)}
-                        ${footer(toiletpaper.footer)}`,
+                        ${footer(toiletpaper.footer)}
+                        </html>`,
 	  err => {
               if (!err) {
 		  console.log(`${out}: Rendered`);
