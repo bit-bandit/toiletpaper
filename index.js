@@ -73,17 +73,6 @@ const toiletpaper = {
           return `<${tag}>${innerhtml}</${tag}>`
         }
 
-	function alltxt() {
-	    // This is awful, and unexcusable code, but
-	    // it's the most basic way to ensure proper
-	    // output 100% of the time.
-	    return `${head(toiletpaper.css, toiletpaper.name)}
-	            ${header(toiletpaper.name, toiletpaper.slug)}
-	            ${nav(navigation)}
-                    ${genhtml("article", markdown_render)}
-                    ${footer(toiletpaper.footer)}`
-	 }
-
         console.log(`${genhtml("article", markdown_render)}`);
 	  
           fs.writeFile(`${abriv_out}.html`,
