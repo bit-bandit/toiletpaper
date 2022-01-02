@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "dependencies": {
+    "marked": "^4.0.8"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": true,
+    "quotes": false,
+    "trailingComma": "none",
+    "bracketSpacing": true
+  }
+}
