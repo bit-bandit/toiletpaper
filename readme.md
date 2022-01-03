@@ -21,21 +21,23 @@ you want them to be organized in!:
 '3 - Closing'.md
 ```
 
-Once we have that done, create a JavaScript file for setting the input, and output of the pages:
+After that, create a directory to store the output, of the generated HTML pages.
+
+Once we have that done, create a JavaScript file for setting the input, and output of the pages, alongside the render function:
 
 ```js
 // index.js
 
-const tp = require("toiletpaper");
+import { toiletpaper } from 'toiletpaper';
 
 // Locate to directory containing Markdown files.
-tp.srcDir = "./book/";
+toiletpaper.srcDir = "book/";
 
 // Directory where Markdown files will be rendered.
-tp.outDir = "./out/";
+toiletpaper.outDir = "./out/";
 
 // Render markdown files
-tp.render();
+toiletpaper.render();
 ```
 
 <!--
@@ -47,7 +49,7 @@ toiletpaper -s book/ -o out/
 ```
 -->
 
-That's it. Execute the file, and you should see your pages rendered in the output file!
+That's it. Execute the file, and you should have your pages rendered in the output file!
 
 ## API
 
@@ -69,6 +71,7 @@ Sets where directory containing raw Markdown files are. Will loop through them, 
 
 Where markdown files will be outputted.
 
+
 ### Optional
 
 ---
@@ -88,6 +91,7 @@ Site slogan (appears next to title). (Defaults to 'The crappiest way to tell peo
 #### `toiletpaper.footer = '...'`
 
 Site footer text. (Defaults to a link to the GitHub repository)
+
 
 ### Function
 
