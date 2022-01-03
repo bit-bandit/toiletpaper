@@ -3,7 +3,7 @@
 // Before you go any further; This is some ugly HTML/JS.
 
 export function head(css, name) {
-return`
+  return `
 <head>
 <title>${name}</title>
 <link rel="stylesheet" href="${css}" type="text/css" media="screen" title="default">
@@ -12,14 +12,14 @@ return`
 }
 
 export function header(title, slug) {
-return`
+  return `
 <header>
 <h1>${title}<span id="subheader">${slug}</span></h1>
 </header>`;
 }
 
 export function nav(files) {
-return`
+  return `
 <nav id = "side-bar">
 <div>
 <ul>
@@ -30,7 +30,7 @@ ${files}
 }
 
 export function footer(disclaimer) {
-return`
+  return `
 <footer>
 <br class="doNotDisplay doNotPrint" />
 <div style="margin-right: auto;">${disclaimer}</p></div>

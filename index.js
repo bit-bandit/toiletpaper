@@ -19,11 +19,12 @@ const toiletpaper = {
   // Predefined Variables
   name: "Toilet Paper Documentation",
   slug: "The crappiest way to tell people what to do.",
-  footer: '<a href="https://github.com/bit-bandit/toiletpaper">https://github.com/bit-bandit/toiletpaper</a>',
+  footer:
+    '<a href="https://github.com/bit-bandit/toiletpaper">https://github.com/bit-bandit/toiletpaper</a>',
   css: "../style.css",
 
   render: function () {
-      console.log("Rendering pages...")
+    console.log("Rendering pages...");
     // Sorting algorithm: 1-9, A-Z
     // If file is in directory with seperate number, append number like so:
     // 'directorynumber.filenumber'
@@ -32,54 +33,56 @@ const toiletpaper = {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
 
-    let nav_list = "<!--Navigation-->";
- 
-    // Loop 1: List all the files, for the left-side navbar.
-      let filelist = function () {
-        fs.readdirSync(toiletpaper.srcDir).forEach((doc) => {
-            return('\n', `<li><a href="./${path.parse(doc).name}.html">${path.parse(doc).name}</a></li>`);
-        });
-      };
-      
-    // Loop 2: Render each file.
-      fs.readdir(this.srcDir, (err, docs) => {
+    let page_nav = [];
+
+    fs.readdir(this.srcDir, (err, docs) => {
       docs.forEach((doc) => {
-	// doc.replace(/\s+/g, '')    
+        page_nav.push(
+          `<li><a href="./${path.parse(doc).name}.html">&rsaquo; ${
+            path.parse(doc).name
+          }</a></li>`
+        );
+      });
+    });
+
+    // Loop 2: Render each file.
+    fs.readdir(this.srcDir, (err, docs) => {
+      docs.forEach((doc) => {
+        // doc.replace(/\s+/g, '')
         let src = fs.readFileSync(`${__dirname}/${this.srcDir}${doc}`, "utf8");
         let out = `${__dirname}/${this.outDir}${doc}`;
-	let abriv_out = `${__dirname}/${this.outDir}${path.parse(doc).name}`
+        let abriv_out = `${__dirname}/${this.outDir}${path.parse(doc).name}`;
 
-        let markdown_render = marked.parse(src);  
+        let markdown_render = marked.parse(src);
 
-	function genhtml (tag, innerhtml) {
-          return `<${tag}>${innerhtml}</${tag}>`
+        function genhtml(tag, innerhtml) {
+          return `<${tag}>${innerhtml}</${tag}>`;
         }
-
-        // console.log(`${genhtml("article", markdown_render)}`);
-	  
-          fs.writeFile(`${abriv_out}.html`,
-		       `<!DOCTYPE HTML>
+ 
+        fs.writeFile(
+          `${abriv_out}.html`,
+          `<!DOCTYPE HTML>
 		        <html>
 		        ${head(toiletpaper.css, toiletpaper.name)}
                         ${header(toiletpaper.name, toiletpaper.slug)}
-                        <!--Put Nav here, when stable enough.-->
+                        ${nav(page_nav.join("\n"))}
                         ${genhtml("article", markdown_render)}
                         ${footer(toiletpaper.footer)}
                         </html>`,
-	  err => {
-              if (!err) {
-		  console.log(`${out}: Rendered`);
-	      }
-	      else if (err) {
-		  console.log(err);
-	      };
-	  });
+          (err) => {
+            if (!err) {
+              console.log(`${out}: Rendered`);
+            } else if (err) {
+              console.log(err);
+            }
+          }
+        );
       });
     });
   }
-}
-    //       else if item = directory:
-    //          iterate same process as above
-    //          for each file.
+};
+//       else if item = directory:
+//          iterate same process as above
+//          for each file.
 
 toiletpaper.render();

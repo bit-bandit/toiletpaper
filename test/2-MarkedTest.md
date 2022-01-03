@@ -1,38 +1,45 @@
 # Header 1
+
 ## Header 2
+
 ### Header 3
+
 #### Header 4
+
 ##### Header 5
+
 ###### Header 6
-___________________
+
+---
+
 Horizontal rules
 
 ---
 
-________
-
+---
 
 paragraph text
 
 More paragraph text
 
-Lorum, ipsum, *italic*, **bold**, ***bold and italic***
+Lorum, ipsum, _italic_, **bold**, **_bold and italic_**
 
 ~~Strikethrough text~~
 
 1. Because why not?
 2. Really, why not?
 
-+ Why more text?
-+ STOP! 
-+ LET ME OUT!
+- Why more text?
+- STOP!
+- LET ME OUT!
   - PLEASE
-    * I want to see my family again
+    - I want to see my family again
 
 > You do?
-Of course I do...I love them.
+> Of course I do...I love them.
 > Why do you say that?
->> What makes you think you love them?
+>
+> > What makes you think you love them?
 
 Because...
 
@@ -41,13 +48,12 @@ Because...
 > > > We don't need more whining, from you.
 
 ```c
-void main () 
+void main ()
 {
     print('Hello, world\n');
     exit 0;
 }
 ```
-
 
 [link text](http://dev.nodeca.com)
 

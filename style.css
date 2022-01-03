@@ -15,34 +15,34 @@ img { width: 300px  }
 body { margin:0; padding: 0; font-size: 84%; font-family: Helvetica, Verdana, Arial, 'Liberation Sans', FreeSans, sans-serif; }
 a { text-decoration: none; color: }
 a:hover { text-decoration: underline; }
-.thisPage { color: black; }
+.thisPage { color: #000000; }
 
 /* header and top bar */
-header nav { background-color: rgb(100,135,220); color: white; padding: 0.3em; border-bottom: 2px solid black; font-size: 91%; }
-header h1 { background-color: #ff6d06; color: black; margin: 0; border-bottom: 2px solid black; font-weight: normal; padding: 0.25ex; font-size: 233%; }
+header nav { background-color: #6487dc; color: #ffffff; padding: 0.3em; border-bottom: 2px solid #000000; font-size: 91%; }
+header h1 { background-color: #ff6d06; color: #000000; margin: 0; border-bottom: 2px solid #000000; font-weight: normal; padding: 0.25ex; font-size: 233%; }
 header a:hover { text-decoration: none; }
 
 /* sidebar */
-body > nav { border-right: 1px solid #ddd; padding: 0;  } 
-body > nav > div { border-bottom: 1px solid #ddd; } 
-body > nav > div a { color: rgb(0, 102, 204); display: block; text-transform: capitalize; font-weight: bold; padding: 0.25em 1ex 0.25em 2mm; font-size: 102%} 
-body > nav > div a:hover { color: white; background-color: rgb(100,135,220); border-left: black solid 0.2em; text-decoration: none; }
+body > nav { border-right: 1px solid #dddddd; padding: 0;  } 
+body > nav > div { border-bottom: 1px solid #dddddd; } 
+body > nav > div a { color: #0066cc; display: block; text-transform: capitalize; font-weight: bold; padding: 0.25em 1ex 0.25em 2mm; font-size: 102%} 
+body > nav > div a:hover { color: #ffffff; background-color: #6487dc; border-left: #000000 solid 0.2em; text-decoration: none; }
 body > nav > div p { font-weight: bold; margin: 0 0 0.5em 2mm; padding: 1em 0 0 0; }
 
 /* main copy */
 article { padding: 0.5ex 0 5vh 1vw;  }
-article h1, article h2 { color: rgb(0,102,204); font-weight: bold; border-bottom: 2px solid rgb(0,102,204); }
-article h3, article h4, article h5 { color: rgb(0,102,204); font-weight: bold; margin: 2em 0 0 0; }
-article h6, article h7, article h8 { color: rgb(0,102,204); font-weight: bold; margin: 2em 0 0 0; }
-article a { color: rgb(0,102,204); }
-article a:hover { color:  rgb(100,135,220); }
+article h1, article h2 { color: #0066cc; font-weight: bold; border-bottom: 2px solid #0066cc; }
+article h3, article h4, article h5 { color: #0066cc; font-weight: bold; margin: 2em 0 0 0; }
+article h6, article h7, article h8 { color: #0066cc; font-weight: bold; margin: 2em 0 0 0; }
+article a { color: #0066cc; }
+article a:hover { color:  #6487dc); }
 
 /* footer */
-footer { color: white; background-color: rgb(100,135,220); }
+footer { color: #ffffff; background-color: #6487dc; }
 footer a { color: inherit; }
 footer div { padding: 1em; }
 
 /* tables */
-table { border: 1px solid rgba(128,128,128,0.5); padding: 0; }
-th { color: white; background-color: rgb(100,135,220); }
-tr:nth-child(odd) { background-color: rgba(128,128,128,0.1)  }
+table { border: 1px solid #80808080; padding: 0; }
+th { color: #ffffff; background-color: #6487dc; }
+tr:nth-child(odd) { background-color: #80808080; }
