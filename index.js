@@ -17,7 +17,7 @@ const toiletpaper = {
   outDir: "out/",
 
   // Predefined Variables
-  name: "Toilet Paper Documentation",
+  name: " 🧻 Toilet Paper Documentation",
   slug: "The crappiest way to tell people what to do.",
   footer:
     '<a href="https://github.com/bit-bandit/toiletpaper">https://github.com/bit-bandit/toiletpaper</a>',
@@ -58,10 +58,10 @@ const toiletpaper = {
         function genhtml(tag, innerhtml) {
           return `<${tag}>${innerhtml}</${tag}>`;
         }
- 
-        fs.writeFile(
-          `${abriv_out}.html`,
-          `<!DOCTYPE HTML>
+
+          fs.writeFile(
+            `${abriv_out}.html`,
+            `<!DOCTYPE HTML>
 		        <html>
 		        ${head(toiletpaper.css, toiletpaper.name)}
                         ${header(toiletpaper.name, toiletpaper.slug)}
@@ -75,7 +75,7 @@ const toiletpaper = {
             } else if (err) {
               console.log(err);
             }
-          }
+	  }
         );
       });
     });

@@ -1,4 +1,4 @@
-# Toilet Paper - The shitty documentation generator
+# `toiletpaper` - The shitty documentation generator
 
 `toiletpaper` is a file-system based tool for creating lightweight
 documentation.
@@ -17,10 +17,7 @@ you want them to be organized in!:
 
 ```
 '1 - Hello World!'.md
-'2 - This is a folder'/
-   |
-   |-------'1 - This is a file in this folder'.md
-   '-------'2 - And another file'.md
+'2 - Why am I a file?'.md
 '3 - Closing'.md
 ```
 

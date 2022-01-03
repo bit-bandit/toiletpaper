@@ -9,7 +9,8 @@ body > nav { flex-basis: content; padding-right: 1vw; min-width: 16em; }
 nav ul { display: flex; flex-direction: column; list-style-type: none; list-style-position: outside; padding-left: 0;  }
 nav li ul { padding-left: 0.6em }
 footer { display: flex; justify-content: space-between; }
-img { width: 300px  }
+img { width: 300px;  padding: 4px;}
+blockquote { border-left: 2px solid #999999; padding-left: 10px; margin-left: 10px; margin-right: 10px}
 /* cut here to leave vanity behind */
 
 body { margin:0; padding: 0; font-size: 84%; font-family: Helvetica, Verdana, Arial, 'Liberation Sans', FreeSans, sans-serif; }
@@ -19,7 +20,7 @@ a:hover { text-decoration: underline; }
 
 /* header and top bar */
 header nav { background-color: #6487dc; color: #ffffff; padding: 0.3em; border-bottom: 2px solid #000000; font-size: 91%; }
-header h1 { background-color: #ff6d06; color: #000000; margin: 0; border-bottom: 2px solid #000000; font-weight: normal; padding: 0.25ex; font-size: 233%; }
+header h1 { background-color:  #6487dc; color: #ffffff; margin: 0; border-bottom: 2px solid #000000; font-weight: normal; padding: 0.25ex; font-size: 233%; }
 header a:hover { text-decoration: none; }
 
 /* sidebar */
