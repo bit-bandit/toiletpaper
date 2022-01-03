@@ -1,9 +1,9 @@
-# `toiletpaper` - The shitty documentation generator
+# 🧻 `toiletpaper` - The crappy documentation generator
 
-`toiletpaper` is a file-system based tool for creating lightweight
+`toiletpaper` is a file-system based tool for creating lightweight webpages for
 documentation.
 
-## Usage + Tutorial
+## Usage/Tutorial
 
 First, create a folder. For this example, we'll call it `book`
 
@@ -12,7 +12,7 @@ mkdir book
 ```
 
 In that directory, create a Markdown file, and another folder, with some
-more Markdown files in it. Remember to prefix all folders/files with the number
+more Markdown files in it. Remember to prefix all files with the number
 you want them to be organized in!:
 
 ```
@@ -30,6 +30,7 @@ const tp = require("toiletpaper");
 
 // Locate to directory containing Markdown files.
 tp.srcDir = "./book/";
+
 // Directory where Markdown files will be rendered.
 tp.outDir = "./out/";
 
@@ -78,11 +79,11 @@ CSS stylesheet. See `style.css` to get an indea of how to design your own.
 
 #### `toiletpaper.name = '...'`
 
-Name of site. (Defaults to 'Toilet Paper Documentation')
+Name of site. (Defaults to '🧻 Toilet Paper Documentation')
 
 #### `toiletpaper.slug = '...'`
 
-Site slug (appears next to name). (Defaults to 'The crappiest way to tell people what to do.')
+Site slogan (appears next to title). (Defaults to 'The crappiest way to tell people what to do.')
 
 #### `toiletpaper.footer = '...'`
 
@@ -103,6 +104,16 @@ bespoke templating language to do all the work for you.
 
 The main layout template is located in `layout.js`. You can modify the HTML to your liking from there.
 
-## License
+## License, & Aknowledgements
 
-0BSD.
+`toiletpaper` is licensed under the hyper-permissive 0BSD license. You're free to do with this software,
+and source code whatever you want, however you want. 
+
+`toiletpaper` takes heavy inspiration from an older `rc` based site generator called `werc`, and 
+actually uses a modified version of its default stylesheet out of the box. `werc`'s license is, 
+to quote directly from its README:
+
+> Public domain, because so called ‘intellectual property’ is an oxymoron.
+
+Couldn't have put it better ourselves. We'd like to thank the late Uriel for writing `werc`, and,
+consequently, inspiring `toiletpaper`.

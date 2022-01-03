@@ -1,5 +1,4 @@
 // SPDX: 0BSD
-// ...
 // TODO:
 //   [ ] - Add proper subdirectory support (Modifications in either loop 1 or 2.)
 //         If file is in directory with seperate number, prepend number (ie. 2.1)
@@ -11,10 +10,10 @@ import path from "path";
 
 import { head, header, nav, footer } from "./layout.js";
 
-const toiletpaper = {
-  // Directory variables (these variables left intentionally blank)
-  srcDir: "test/",
-  outDir: "out/",
+export default const toiletpaper = {
+  // Directory variables (these values left intentionally blank)
+  srcDir: null,
+  outDir: null,
 
   // Predefined Variables
   name: " 🧻 Toilet Paper Documentation",
@@ -23,11 +22,9 @@ const toiletpaper = {
     '<a href="https://github.com/bit-bandit/toiletpaper">https://github.com/bit-bandit/toiletpaper</a>',
   css: "../style.css",
 
+  // render files
   render: function () {
     console.log("Rendering pages...");
-    // Sorting algorithm: 1-9, A-Z
-    // If file is in directory with seperate number, append number like so:
-    // 'directorynumber.filenumber'
 
     // Have to impliment this natively because ESM is a shit.
     const __filename = fileURLToPath(import.meta.url);
@@ -81,8 +78,3 @@ const toiletpaper = {
     });
   }
 };
-//       else if item = directory:
-//          iterate same process as above
-//          for each file.
-
-toiletpaper.render();
