@@ -2,6 +2,8 @@
 // TODO:
 //   [ ] - Add proper subdirectory support (Modifications in either loop 1 or 2.)
 //         If file is in directory with seperate number, prepend number (ie. 2.1)
+//
+//   [ ] - Add condition for the `.thisPage` css class, for the sidebar.
 
 import fs from "fs";
 import { marked } from "marked"; // This is out of place, but Marked needs it to work.
