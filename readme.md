@@ -34,7 +34,7 @@ import { toiletpaper } from 'toiletpaper';
 toiletpaper.srcDir = "book/";
 
 // Directory where Markdown files will be rendered.
-toiletpaper.outDir = "./out/";
+toiletpaper.outDir = "out/";
 
 // Render markdown files
 toiletpaper.render();
