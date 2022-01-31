@@ -14,7 +14,7 @@ interface TP {
   render: any; // This is probably bad, but whatever.
 }
 
-const toiletpaper: TP = {
+export const toiletpaper: TP = {
   srcDir: undefined,
   outDir: undefined,
 
