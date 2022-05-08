@@ -40,15 +40,6 @@ toiletpaper.outDir = "out/";
 toiletpaper.render();
 ```
 
-<!--
-or, if you want to go with the CLI...
-
-```sh
-NOT YET!
-toiletpaper -s book/ -o out/
-```
--->
-
 That's it. Execute the file, and you should have your pages rendered in the output file!
 
 ## API
@@ -69,7 +60,7 @@ Sets where directory containing raw Markdown files are. Will loop through them, 
 
 #### `toiletpaper.outDir = '...'`
 
-Where markdown files will be outputted.
+Where rendered pages will be outputted.
 
 
 ### Optional
@@ -93,7 +84,7 @@ Site slogan (appears next to title). (Defaults to 'The crappiest way to tell peo
 Site footer text. (Defaults to a link to the GitHub repository)
 
 
-### Function
+### Functions
 
 ---
 
@@ -103,17 +94,17 @@ Render pages from `srcDir` to `outDir`.
 
 ## Hacking
 
-`toiletpaper` doesn't use any front-end JavaScript framework. It just uses raw HTML, and a basic,
-bespoke templating language to do all the work for you.
+`toiletpaper` doesn't use any front-end JavaScript framework. It just uses HTML, and template literals 
+to do all the work for you.
 
-The main layout template is located in `layout.js`. You can modify the HTML to your liking from there.
+The main layout templates are located in `layout.ts`. You can modify the HTML to your liking from there.
 
 ## License, & Aknowledgements
 
 `toiletpaper` is licensed under the hyper-permissive 0BSD license. You're free to do with this software,
 and source code whatever you want, however you want. 
 
-`toiletpaper` takes heavy inspiration from an older `rc` based site generator called `werc`, and 
+`toiletpaper` takes heavy inspiration from an older [`rc`](http://doc.cat-v.org/plan_9/4th_edition/papers/rc) based site generator called `werc`, and 
 actually uses a modified version of its default stylesheet out of the box. `werc`'s license is, 
 to quote directly from its README:
 
