@@ -1,118 +1,114 @@
-import { article, footer, head, header, sidebar } from "./layouts.ts";
 import { marked } from "https://raw.githubusercontent.com/markedjs/marked/master/lib/marked.esm.js";
 
-// Interface shite.
-interface TP {
-  srcDir: string | undefined;
-  outDir: string | undefined;
+// Input and output directories
+const output = "./output/";
 
-  name: string;
-  slug: string;
-  footer: string;
-  css: string;
+function render(title: string, content: string, logo?: string) {
+  return `
+<html>
+<head>
+<title>${title}</title>
+</head>
+<style>
+a { color: #000; }
 
-  render: any; // This is probably bad, but whatever.
+body {
+  display: flex; 
+  justify-content: flex-start; 
+  gap: 3em;
+  /* Colors */
+  background: #f0f0f0;  
 }
 
-export const toiletpaper: TP = {
-  srcDir: undefined,
-  outDir: undefined,
+article { max-width: 30em; }
 
-  name: "🧻 Toilet Paper Documentation",
-  slug: "The crappiest way to tell people what to do.",
-  footer:
-    '<a href="https://github.com/bit-bandit/toiletpaper">https://github.com/bit-bandit/toiletpaper</a>',
-  css: `${Deno.cwd()}/style.css`,
+footer {
+  border-top: 1px solid #ccc;
+  padding-top: 1em;
+  padding-right: 16em;
+  display: block;
+}
 
-  render: async function () {
-    let regexreplace = /.md$/gmi; // For removing junk in filenames. Edit this to your liking.
+article img {
+  max-width: 60em;
+  display: block;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+</style>
 
-    let listing: string = "";
+<body>
+<div id="logo">
+${marked.parse(logo) ?? "<h1>:^)</h1>"}
+</div>
+<div id="main">
+<article>
+${content}
+</article>
+<footer>
+<a href="..">Back</a>
+</footer>
+</div>
+</body>
+</html>
+`;
+}
 
-    for await (let page of Deno.readDir(`${toiletpaper.srcDir}`)) {
-      let title: string = `${page.name.replace(regexreplace, "")}`;
-      let exDup = new RegExp(title + "[^/]");
+interface Settings {
+    input?: string,
+    base?: string,
+    output?: string,
+}
 
-      if (page.isFile && (!exDup.test(listing))) {
-        listing += `<li><a href="${Deno.cwd()}/${toiletpaper.outDir}${
-          encodeURIComponent(title)
-        }.html">&rsaquo; ${title}</a></li>\n`;
-      } else if (page.isDirectory) {
-        // Enable below if you just want directories to be indicators..
-        listing +=
-          `<li><a href="${Deno.cwd()}/${toiletpaper.outDir}${title}.html">&rsaquo; ${title}</a></li>\n`; //
-        listing += `<li>\n<ul>\n`;
-        for await (
-          let entry of Deno.readDir(`${toiletpaper.srcDir}/${page.name}`)
-        ) {
-          if (entry.isFile) {
-            listing += `<li><a href="${Deno.cwd()}/${toiletpaper.outDir}${
-              encodeURIComponent(title)
-            }/${entry.name.replace(regexreplace, "")}.html">&rsaquo; ${
-              entry.name.replace(regexreplace, "")
-            }</a></li>\n`;
-          }
+export async function toiletpaper(s: Settings) {
+  let p: string = "";
+
+  for await (const d_entry of Deno.readDir(s.input)) {
+    if (d_entry.isFile) {
+      p += `[${d_entry.name.slice(0, -3)}](./${
+        d_entry.name.slice(0, -3)
+      }.html)\n\n`;
+
+      let raw = await Deno.readTextFile(`${s.input}${d_entry.name}`); // Why.
+      if (s.base) {
+        try {
+          await Deno.lstat(`${s.output}${base}/`);
+        } catch (err) {
+          await Deno.mkdir(`${s.output}${base}/`);
         }
-        listing += `</ul>\n</li>\n`;
+        await Deno.writeTextFile(
+          `${s.output}${base}/${d_entry.name.slice(0, -3)}.html`,
+          render(d_entry.name.slice(0, -3), marked.parse(raw)),
+        );
+      } else {
+        await Deno.writeTextFile(
+          `${s.output}${d_entry.name.slice(0, -3)}.html`,
+          render(d_entry.name.slice(0, -3), marked.parse(raw)),
+        );
       }
-    }
-    // console.log(sidebar(listing));
-    // Render files
-    for await (let page of Deno.readDir(`${toiletpaper.srcDir}`)) {
-      let title: string = `${page.name.replace(regexreplace, "")}`;
-      if (page.isFile) {
-        let file: string = await Deno.readTextFile(
-          `${toiletpaper.srcDir}${page.name}`,
-        );
-        let parsed: string = await marked.parse(file);
-
-        let output: string = (
-          "<!DOCTYPE HTML>\n<html>\n" +
-          head(`${title} - ${toiletpaper.name}`, toiletpaper.css) +
-          "<body>" +
-          header(toiletpaper.name, toiletpaper.slug) +
-          sidebar(listing) +
-          article(parsed) +
-          footer(toiletpaper.footer) +
-          "\n</body>\n</html>"
-        );
-
-        await Deno.writeTextFile(`${toiletpaper.outDir}${title}.html`, output);
-        console.log(`Page Rendered: ${title}`);
-      } else if (page.isDirectory) {
-          try {
-	      await Deno.mkdir(`${toiletpaper.outDir}${title}`);
-	  } catch (err) {
-	      continue;
-	  }
-        for await (
-          let entry of Deno.readDir(`${toiletpaper.srcDir}/${page.name}`)
-        ) {
-          if (entry.isFile) {
-            let title: string = `${entry.name.replace(regexreplace, "")}`;
-            let file: string = await Deno.readTextFile(
-              `${toiletpaper.srcDir}${page.name}/${entry.name}`,
-            );
-            let parsed: string = await marked.parse(file);
-
-            let output: string = (
-              "<!DOCTYPE HTML>\n<html>\n" +
-              head(`${title} - ${toiletpaper.name}`, toiletpaper.css) +
-              "<body>" +
-              header(toiletpaper.name, toiletpaper.slug) +
-              sidebar(listing) +
-              article(parsed) +
-              footer(toiletpaper.footer) +
-              "\n</body>\n</html>"
-            );
-            await Deno.writeTextFile(
-              `${toiletpaper.outDir}${page.name}/${title}.html`,
-              output,
-            );
-            console.log(`Page Rendered: ${title}`);
-          }
+    } else {
+      let qr: string = "";
+      for await (const dirno2 of Deno.readDir(`${s.input}${d_entry.name}/`)) {
+        if (dirno2.isFile) {
+          qr += `[${dirno2.name.slice(0, -3)}](./${d_entry.name}/${
+            dirno2.name.slice(0, -3)
+          }.html)\n\n`;
+        } else {
+          qr += `[${dirno2.name.slice(0, -3)}/](./${d_entry.name}/${
+            dirno2.name.slice(0, -3)
+          }.html)\n\n`;
         }
       }
+      await Deno.writeTextFile(
+        `${s.output}${d_entry.name}.html`,
+        render(d_entry.name, marked.parse(qr)),
+      );
+      p += `[${d_entry.name}/](./${d_entry.name}.html)\n\n`;
+	await toiletpaper({input:`${s.input}${d_entry.name}/`, base: d_entry.name});
     }
-  },
-};
+  }
+  await Deno.writeTextFile(
+    `${s.output}index.html`,
+    render("Index", marked.parse(p)),
+  );
+}
