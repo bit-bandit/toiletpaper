@@ -3,7 +3,7 @@ import { marked } from "https://raw.githubusercontent.com/markedjs/marked/master
 // Input and output directories
 const output = "./output/";
 
-function render(title: string, content: string, logo?: string) {
+function render(title: string, content: string) {
   return `
 <html>
 <head>
@@ -39,7 +39,7 @@ article img {
 
 <body>
 <div id="logo">
-${marked.parse(logo) ?? "<h1>:^)</h1>"}
+<h1>:^)</h1>
 </div>
 <div id="main">
 <article>
@@ -55,7 +55,7 @@ ${content}
 }
 
 interface Settings {
-    input?: string,
+    input: string,
     base?: string,
     output?: string,
 }
@@ -72,12 +72,12 @@ export async function toiletpaper(s: Settings) {
       let raw = await Deno.readTextFile(`${s.input}${d_entry.name}`); // Why.
       if (s.base) {
         try {
-          await Deno.lstat(`${s.output}${base}/`);
+          await Deno.lstat(`${s.output}${s.base}/`);
         } catch (err) {
-          await Deno.mkdir(`${s.output}${base}/`);
+          await Deno.mkdir(`${s.output}${s.base}/`);
         }
         await Deno.writeTextFile(
-          `${s.output}${base}/${d_entry.name.slice(0, -3)}.html`,
+          `${s.output}${s.base}/${d_entry.name.slice(0, -3)}.html`,
           render(d_entry.name.slice(0, -3), marked.parse(raw)),
         );
       } else {
