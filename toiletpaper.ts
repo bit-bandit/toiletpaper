@@ -13,7 +13,6 @@ body {
   display: flex; 
   justify-content: flex-start; 
   gap: 3em;
-  /* Colors */
   background: #f0f0f0;  
 }
 
@@ -36,14 +35,14 @@ article img {
 
 <body>
 <div id="logo">
-<h1>:^)</h1>
+<h1>🧻</h1>
 </div>
 <div id="main">
 <article>
 ${content}
 </article>
 <footer>
-<a href="..">Back</a>
+<a href="../index.html">Back</a>
 </footer>
 </div>
 </body>
@@ -65,7 +64,6 @@ export async function toiletpaper(s: Settings) {
       p += `[${d_entry.name.slice(0, -3)}](./${
         d_entry.name.slice(0, -3)
       }.html)\n\n`;
-
       let raw = await Deno.readTextFile(`${s.input}${d_entry.name}`); // Why.
       if (s.base) {
         try {
