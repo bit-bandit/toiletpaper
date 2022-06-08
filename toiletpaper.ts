@@ -1,8 +1,5 @@
 import { marked } from "https://raw.githubusercontent.com/markedjs/marked/master/lib/marked.esm.js";
 
-// Input and output directories
-const output = "./output/";
-
 function render(title: string, content: string) {
   return `
 <html>
