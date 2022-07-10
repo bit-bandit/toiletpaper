@@ -4,35 +4,13 @@
 documentation.
 
 ## Usage/Tutorial
-
-First, create a folder. For this example, we'll call it `book`
-
-```sh
-mkdir book
 ```
-
-In that directory, create a Markdown file, and another folder, with some
-more Markdown files in it. Remember to prefix all files with the number
-you want them to be organized in!:
-
+deno run --allow-net --allow-read=. toiletpaper.ts
 ```
-'1 - Hello World!'.md
-'2 - Why am I a file?'.md
-'3 - Closing'.md
-```
+Toiletpaper reads from the path provided in the URL, and tries to determine if the path directs to
+either a file, or a directory. Results will change depending on the criteria met.
 
-After that, run a `wget` to get `toiletpaper.ts` into the directory.
-
-Once we have that done, add the following to the bottom of the file:
-
-```js
-await toiletpaper({
-  input: './book/'  // Remember to keep the / at the end!
-  output: './out/'
-})
-```
-
-That's it. Execute the file, and you should have your pages rendered in the output file.
+The default name for a directory to read from is `dir`.
 
 ## Hacking
 
