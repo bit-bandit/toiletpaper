@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std/http/server.ts";
 import { marked } from "https://raw.githubusercontent.com/markedjs/marked/master/lib/marked.esm.js";
 
-const logo = "<h1>🧻</h1>"
+const logo = "<h1>🧻</h1>";
 
 function render(
   title: string,
@@ -11,56 +11,56 @@ function render(
 ) {
   let str = `
 <html>
-<head>
-<title>${title}</title>
-</head>
-<style>
-a { color: #000; }
-body {
-  display: flex;
-  justify-content: flex-start;
-  gap: 3em;
-  background: #f0f0f0;
-}
-article { max-width: 30em; }
-footer {
-  border-top: 1px solid #ccc;
-  padding-top: 1em;
-  padding-right: 16em;
-  display: block;
-}
-article img {
-  max-width: 60em;
-  display: block;
-  padding-bottom: 1em;
-  padding-top: 1em;
-}
-</style>
-<body>
-<div id="logo">
-${logo}
-</div>
-<div id="main">
-<article>
-${content}
-</article>
+  <head>
+    <title>${title}</title>
+  </head>
+  <style>
+    a { color: #000; }
+    body {
+      display: flex;
+      justify-content: flex-start;
+      gap: 3em;
+      background: #f0f0f0;
+    }
+    article { max-width: 30em; }
+    footer {
+      border-top: 1px solid #ccc;
+      padding-top: 1em;
+      padding-right: 16em;
+      display: block;
+    }
+    article img {
+      max-width: 60em;
+      display: block;
+      padding-bottom: 1em;
+      padding-top: 1em;
+    }
+  </style>
+  <body>
+    <div id="logo">
+      ${logo}
+    </div>
+    <div id="main">
+      <article>
+        ${content}
+      </article>
 `;
-   if (includeBtm && root) {
+  if (includeBtm && root) {
     str += `
-<footer>
-<a href="${root}">Back</a>
-</footer>
+      <footer>
+        <a href="${root}">Back</a>
+      </footer>
 `;
   } else if (includeBtm) {
     str += `
-<footer>
-<a href=".">Back</a>
-</footer>
+      <footer>
+        <a href=".">Back</a>
+      </footer>
 `;
   }
   str += `
-</div>
-</body>
+    </div>
+  </body>
 </html>
 `;
   return str;
