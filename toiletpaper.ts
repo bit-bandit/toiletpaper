@@ -1,7 +1,14 @@
 import { serve } from "https://deno.land/std/http/server.ts";
 import { marked } from "https://raw.githubusercontent.com/markedjs/marked/master/lib/marked.esm.js";
 
-function render(title: string, content: string, includeBtm: boolean) {
+const logo = "<h1>🧻</h1>"
+
+function render(
+  title: string,
+  content: string,
+  includeBtm: boolean,
+  root?: string,
+) {
   let str = `
 <html>
 <head>
@@ -10,10 +17,10 @@ function render(title: string, content: string, includeBtm: boolean) {
 <style>
 a { color: #000; }
 body {
-  display: flex; 
-  justify-content: flex-start; 
+  display: flex;
+  justify-content: flex-start;
   gap: 3em;
-  background: #f0f0f0;  
+  background: #f0f0f0;
 }
 article { max-width: 30em; }
 footer {
@@ -31,17 +38,23 @@ article img {
 </style>
 <body>
 <div id="logo">
-<h1>🧻</h1>
+${logo}
 </div>
 <div id="main">
 <article>
 ${content}
 </article>
 `;
-  if (includeBtm) {
+   if (includeBtm && root) {
     str += `
 <footer>
-<a href="..">Back</a>
+<a href="${root}">Back</a>
+</footer>
+`;
+  } else if (includeBtm) {
+    str += `
+<footer>
+<a href=".">Back</a>
 </footer>
 `;
   }
@@ -78,7 +91,6 @@ async function handler(req: Request): Response {
       },
     );
   }
-
   let s: FileInfo;
   console.log(`${entryDir}${path}`);
   console.log(`${entryDir}${path + ".md"}`);
@@ -97,6 +109,7 @@ async function handler(req: Request): Response {
           path,
           marked.parse(Output),
           true,
+          ".",
         ),
         {
           headers: headers,
@@ -109,14 +122,24 @@ async function handler(req: Request): Response {
 
   if (s.isDirectory) {
     for await (const ent of Deno.readDir(`${entryDir}${path}`)) {
-      Output += `[${ent.name.slice(0, -3)}](./${ent.name.slice(0, -3)})`;
+      console.log(`${entryDir}${path}${ent.name}`);
+      if (ent.name[0] === "+") {
+        const txt = await Deno.readTextFile(`${entryDir}${path}/${ent.name}`);
+        console.log(txt);
+        Output = txt + "\n" + Output + "\n";
+      } else if (ent.name[0] === "_") {
+        continue;
+      } else {
+        Output += `[${ent.name.slice(0, -3)}](./${ent.name.slice(0, -3)}\n)`;
+      }
     }
-      
+
     return new Response(
       render(
         path,
         marked.parse(Output),
         true,
+        "..",
       ),
       {
         headers: headers,
