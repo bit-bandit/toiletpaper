@@ -18,9 +18,12 @@ function render(
     a { color: #000; }
     body {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 3em;
       background: #f0f0f0;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
     }
     article { max-width: 30em; }
     footer {
@@ -92,8 +95,6 @@ async function handler(req: Request): Response {
     );
   }
   let s: FileInfo;
-  console.log(`${entryDir}${path}`);
-  console.log(`${entryDir}${path + ".md"}`);
   let f: FileInfo;
 
   try {
