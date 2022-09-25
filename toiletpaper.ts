@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std/http/server.ts";
+import { serveDir } from "https://deno.land/std/http/file_server.ts";
 import { marked } from "https://raw.githubusercontent.com/markedjs/marked/master/lib/marked.esm.js";
 
 const logo = "<h1>🧻</h1>";
@@ -74,18 +75,20 @@ const entryDir = "dir";
 async function handler(req: Request): Response {
   const headers = new Headers([["Content-Type", "text/html; charset=utf-8"]]);
 
-  const u = new URL(req.url);
-  const path = u.pathname;
-
-  let Output: string = "";
+  const path = new URL(req.url).pathname;
+    
+  if (path.startsWith("/static")) {
+    return serveDir(req);
+  }
+    
+  let output = "";
 
   if (path == "/") {
-    Output = await Deno.readTextFile(`${entryDir}/index.md`);
-
+    output = await Deno.readTextFile(`${entryDir}/index.md`);
     return new Response(
       render(
         "index.md".slice(0, -3),
-        marked.parse(Output),
+        marked.parse(output),
         false,
       ),
       {
@@ -94,6 +97,7 @@ async function handler(req: Request): Response {
       },
     );
   }
+    
   let s: FileInfo;
   let f: FileInfo;
 
@@ -102,13 +106,14 @@ async function handler(req: Request): Response {
   } catch {
     f = await Deno.lstat(`${entryDir}${path + ".md"}`);
   }
+    
   try {
     if (f.isFile) {
-      Output = await Deno.readTextFile(`${entryDir}${path + ".md"}`);
+      output = await Deno.readTextFile(`${entryDir}${path + ".md"}`);
       return new Response(
         render(
           path,
-          marked.parse(Output),
+          marked.parse(output),
           true,
           ".",
         ),
@@ -119,26 +124,25 @@ async function handler(req: Request): Response {
       );
     }
   } catch {
+      // No nothing in any improper case.
   }
 
   if (s.isDirectory) {
     for await (const ent of Deno.readDir(`${entryDir}${path}`)) {
-      console.log(`${entryDir}${path}${ent.name}`);
       if (ent.name[0] === "+") {
         const txt = await Deno.readTextFile(`${entryDir}${path}/${ent.name}`);
-        console.log(txt);
-        Output = txt + "\n" + Output + "\n";
+        output = txt + "\n" + output + "\n";
       } else if (ent.name[0] === "_") {
         continue;
       } else {
-        Output += `[${ent.name.slice(0, -3)}](./${ent.name.slice(0, -3)}\n)`;
+        output += `[${ent.name.slice(0, -3)}](./${ent.name.slice(0, -3)})\n\n`;
       }
     }
 
     return new Response(
       render(
         path,
-        marked.parse(Output),
+        marked.parse(output),
         true,
         "..",
       ),
